@@ -5,13 +5,23 @@ import (
 	"time"
 )
 
-type rateLimiter struct {
-	time map[string]  []time.Time
-	limit int
-	winDuration time.Duration	
+type tokenBucket struct {
+	capacity int
+	tokens int
+	refilRate int
+	lastRefill time.Time
+}
+
+func newTokenBucket(capacity int, refillrate int) *tokenBucket{
+	return &tokenBucket{
+		capacity: capacity,
+		tokens: capacity,
+		refilRate: refillrate,
+		lastRefill: time.Now(),
+	}
 }
 
 
 func main(){
-	fmt.Print()
+	fmt.Print("Limit Bucket")
 }
