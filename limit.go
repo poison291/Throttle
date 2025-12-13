@@ -42,7 +42,7 @@ func (tb *tokenBucket) AllowRequest() bool {
 	}
 	return false
 }
-func apiFetch (number int) {
+func apiFetch(number int) {
 	url := fmt.Sprintf("https://jsonplaceholder.typicode.com/todos/%d", number)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -60,21 +60,21 @@ func apiFetch (number int) {
 }
 
 func main() {
-	tb := newTokenBucket(3, 1)
-	for i := 0; i <= 3; i++ {
-		result := tb.AllowRequest()
+	tb := newTokenBucket(4, 1)
+	for i := 1; i <= 5; i++ {
 
 		// For delaying between the request
 		// time.Sleep(time.Second)
 		
-		
 		fmt.Println("\n-------------------------")
-		fmt.Println("Request number:", i+1)
-		
+		fmt.Println("Tokens available before request:", tb.tokens)
+
+		result := tb.AllowRequest()
 		if result {
-			fmt.Print("The request Passed. ")
-			apiFetch(i+1 )
+			fmt.Printf("Request %d Allowed ✅ \n", i)
+			apiFetch(i)
 		} else {
+			fmt.Printf("Request %d Blocked ❌ \n", i)
 			fmt.Print("The Request Block due to insufficent token. ")
 		}
 	}
