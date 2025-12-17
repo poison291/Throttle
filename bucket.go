@@ -11,7 +11,7 @@ type tokenBucket struct {
 	capacity     int
 	tokens       int
 	refilRate    int
-	blockedCount int //no of request block
+	blockedCount int //no of request
 	lockUntil    time.Time
 	lastRefill   time.Time
 }
@@ -48,7 +48,7 @@ func (tb *tokenBucket) AllowRequest() bool {
 func middleware(tb *tokenBucket, fn func()) {
 	
 	if time.Now().Before(tb.lockUntil){
-		fmt.Printf("🚧 User Locked Until %s\n", tb.lockUntil.Format("15:04:05"))
+		fmt.Printf("🚧 User Locked Until %s\n", tb.lockUntil.Format("15:04:05"))aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	}
 	
 	if !tb.AllowRequest() {
@@ -66,7 +66,7 @@ func middleware(tb *tokenBucket, fn func()) {
 			"SECURITY ALERT: Blocked=%d Time=%s ❌\n",
 			tb.blockedCount,
 			time.Now().Format("15:04:05"),
-		)
+		) 
 		return
 	}
 	fn()
