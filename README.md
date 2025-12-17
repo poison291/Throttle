@@ -54,4 +54,4 @@ No frameworks, no external services — just core Go.
 ## Usage
 
 ```bash
-go run main.go
+go run bucket.go
